@@ -1,0 +1,55 @@
+﻿@using Infragistics.Web.Mvc;
+@model IgniteTreeDemo.Models.HomeModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*<link rel="stylesheet" href="~/css/infragistics/css/themes/infragistics/infragistics.theme.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/infragistics/css/structure/infragistics.css" asp-append-version="true" />
+
+<script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+<script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+<script src="~/lib/jquery-validate/jquery.validate.min.js" asp-append-version="true"></script>
+
+<script src="~/lib/infragistics/js/infragistics.core.js" asp-append-version="true"></script>
+<script src="~/lib/infragistics/js/infragistics.lob.js" asp-append-version="true"></script>
+<script src="~/lib/infragistics/js/infragistics.dv.js" asp-append-version="true"></script>
+<script src="~/lib/infragistics/js/modules/i18n/regional/infragistics.ui.regional-en-GB.js" asp-append-version="true"></script>*@
+
+<div>
+    
+	@(
+		Html.Infragistics().Tree()
+		.DataSource(Model.TreeDataSource)
+		.Bindings(b => {
+			b.PrimaryKey("Identifier");
+			b.TextKey("Text");
+			b.ValueKey("Value");
+			b.ChildDataProperty("ChildItems");
+			b.Bindings(b2 => {
+				b2.PrimaryKey("Identifier");
+				b2.TextKey("Text");
+				b2.ValueKey("Value");
+				b2.ChildDataProperty("ChildItems");
+				b2.Bindings(b3 => {
+					b3.PrimaryKey("Identifier");
+					b3.TextKey("Text");
+					b3.ValueKey("Value");
+					b3.ChildDataProperty("ChildItems");
+					b3.Bindings(b4 => {
+						b4.PrimaryKey("Identifier");
+						b4.TextKey("Text");
+						b4.ValueKey("Value");
+						b4.ChildDataProperty("ChildItems");
+					});
+				});
+			});
+		})
+		.InitialExpandDepth(-1)
+		.LoadOnDemand(true)
+		.DataSourceUrl(Url.Action("GetTreeDataOnDemand", "Home"))
+		.DataBind()
+		.Render()
+	)
+</div>
